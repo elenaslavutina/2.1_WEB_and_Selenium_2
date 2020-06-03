@@ -18,7 +18,7 @@ class CallbackTest {
 
     @BeforeAll
     static void setUpAll() {
-        System.setProperty("webdriver.chrome.driver", ".\\drivers\\windows\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
     }
 
     @BeforeEach
@@ -40,19 +40,25 @@ class CallbackTest {
         elements.get(1).sendKeys("+79270000000");
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.className("button")).click();
-        String text = driver.findElement(By.className("alert-success")).getText();
-        assertEquals("Ваша заявка успешно отправлена!", text.trim());
+
+        String text = driver.findElement(By.className("paragraph_theme_alfa-on-white")).getText();
+
+
+        assertEquals("  Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", text);
     }
 
     @Test
     void shouldTestV2() {
         driver.get("http://localhost:9999");
-        WebElement form = driver.findElement(By.cssSelector("[data-test-id=callback-form]"));
-        form.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Василий");
-        form.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79270000000");
-        form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
-        form.findElement(By.cssSelector("[data-test-id=submit]")).click();
-        String text = driver.findElement(By.className("alert-success")).getText();
-        assertEquals("Ваша заявка успешно отправлена!", text.trim());
+        //WebElement form = driver.findElement(By.cssSelector("[data-test-id=callback-form]"));
+        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Василий");
+        driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79270000000");
+        driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
+       // driver.findElement(By.cssSelector("[data-test-id=submit]")).click();
+        driver.findElement(By.className("button")).click();
+
+        String text = driver.findElement(By.className("paragraph_theme_alfa-on-white")).getText();
+
+        assertEquals("  Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", text);
     }
 }
